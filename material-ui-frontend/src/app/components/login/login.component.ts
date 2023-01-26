@@ -9,8 +9,10 @@ import { FrontendService } from 'src/app/services/frontend.service';
 })
 export class LoginComponent implements OnInit {
   user = {
-    success: '',
-    message: ''
+    id: '',
+    username: '',
+    email: '',
+    password: ''
   };
   constructor( private frontendService: FrontendService ){}
   ngOnInit(): void{
@@ -21,7 +23,7 @@ export class LoginComponent implements OnInit {
     .subscribe(
       data =>{
         this.user = data;
-        console.log(data.message);
+        console.log(data);
       },
       error =>{
         console.log(error);

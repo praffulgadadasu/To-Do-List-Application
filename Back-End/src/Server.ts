@@ -5,7 +5,7 @@ import cors from 'cors'
 import * as bodyParser from 'body-parser'
 import * as dotenv from 'dotenv'
 
-import { auth as AuthRoute } from './routes/Auth'
+import indexRoutes from './routes/Auth';
 
 export class Server{
     public app: express.Application;
@@ -42,9 +42,6 @@ export class Server{
         });
     }
     private setRoutes(){
-        this.app.get('/',(req, res) =>{
-            res.json({ success:true, message: "Congrats! JWT Authentication Successful." })
-        });
-        this.app.use("/api/v1/auth", AuthRoute);
+        this.app.use(indexRoutes);
     }
 }
