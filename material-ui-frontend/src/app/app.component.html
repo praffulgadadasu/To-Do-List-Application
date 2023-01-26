@@ -1,15 +1,9 @@
-<div>
-  <nav>
-    <div>
-      <li>
-        <a routerLink="login">Login</a>
-      </li>
-      <li>
-        <a routerLink="register">Register</a>
-      </li>
-    </div>
-  </nav>
-  <div>
-    <router-outlet></router-outlet>
-  </div>
-</div>
+<!-- Toolbar -->
+<mat-toolbar color="primary" class="app-header">
+    <span class="nav-tool-items">
+      <a mat-button routerLink="login" routerLinkActive="active">Log in</a>
+      <a mat-button mat-raised-button routerLink="register" routerLinkActive="active">Register</a>
+    </span>
+</mat-toolbar>
+  
+<router-outlet></router-outlet>

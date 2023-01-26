@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FrontendService } from 'src/app/services/frontend.service';
-
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,26 +10,29 @@ import { FrontendService } from 'src/app/services/frontend.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  user = {
-    id: '',
-    username: '',
-    email: '',
-    password: ''
-  };
-  constructor( private frontendService: FrontendService ){}
+  public loginForm !: FormGroup;
+  constructor( private formBuilder : FormBuilder, private http: HttpClient, private router: Router ) { }
   ngOnInit(): void{
-
+    this.loginForm = this.formBuilder.group({
+      email:[''],
+      password:['']
+    })
   }
-  displayUserData(): void{
-    this.frontendService.getAll()
-    .subscribe(
-      data =>{
-        this.user = data;
-        console.log(data);
-      },
-      error =>{
-        console.log(error);
+  login(){
+    this.http.get<any>("http://localhost:3000/users")
+    .subscribe(res=>{
+      const user = res.find((a:any)=>{
+        return a.email == this.loginForm.value.email && a.password == this.loginForm.value.password
+      });
+      if(user){
+        alert("User Logged In Successfully!");
+        this.loginForm.reset();
+        this.router.navigate(['home'])
+      }else{
+        alert("Invalid Credentials!")
       }
-    )
+    },err=>{
+      alert("Something went wrong. Try Again Later!")
+    })
   }
 }
