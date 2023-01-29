@@ -1,12 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the `test` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropTable
-DROP TABLE "test";
-
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
@@ -15,6 +6,14 @@ CREATE TABLE "User" (
     "password" TEXT NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ToDoListTable" (
+    "id" SERIAL NOT NULL,
+    "ToDoList" TEXT NOT NULL,
+
+    CONSTRAINT "ToDoListTable_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex

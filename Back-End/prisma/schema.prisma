@@ -16,3 +16,8 @@ model User{
   email String @unique
   password String
 }
+
+model ToDoListTable{
+  id Int @id @default(autoincrement())
+  ToDoList String
+}

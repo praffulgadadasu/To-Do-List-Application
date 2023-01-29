@@ -1,5 +1,13 @@
 <p>home works!</p>
-<div align="center">
-    <button mat-raised-button color="primary" routerLink="/login" class="btn-block">SignOut</button>
-</div>
 
+<form class="example-form" [formGroup]="to_do_list_Form" (ngSubmit)="save()">
+    <mat-form-field class="example-full-width">
+        <mat-label>Leave a comment</mat-label>
+        <textarea formControlName="to_do_list" matInput placeholder="Ex. It makes me feel..."></textarea>
+    </mat-form-field>
+
+    <div align="center">
+        <button mat-raised-button color="primary" class="btn-block" style="margin-right: 1%;">Translate</button>
+        <button mat-raised-button color="primary" routerLink="/login" class="btn-block">SignOut</button>
+    </div>
+</form>
