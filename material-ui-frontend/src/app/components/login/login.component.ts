@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FrontendService } from 'src/app/services/frontend.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
