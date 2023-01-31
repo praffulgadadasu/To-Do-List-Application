@@ -4,7 +4,7 @@ const prism = new PrismaClient();
 
 export const getUsers = async (req: Request, res: Response): Promise<Response> =>{
     try{
-        const response = await prism.$queryRaw`SELECT * FROM "User"`;
+        const response = await prism.$queryRaw`SELECT * FROM userstable`;
         return res.status(200).json(response);
     }
     catch(e){
@@ -15,13 +15,13 @@ export const getUsers = async (req: Request, res: Response): Promise<Response> =
 
 export const getUserbyId = async ( req: Request, res: Response ): Promise<Response> => {
     const id = parseInt(req.params.id)
-    const response = await prism.$queryRaw`SELECT * FROM "User" WHERE id = ${id}`;
+    const response = await prism.$queryRaw`SELECT * FROM userstable WHERE id = ${id}`;
     return res.json(response);
 }
 
 export const createUser = async ( req: Request, res: Response ): Promise<Response> => {
     const { username, email, password } = req.body;
-    const response =  await prism.$queryRaw`INSERT INTO "User" (username, email, password) VALUES(${username}, ${email}, ${password})`;
+    const response =  await prism.$queryRaw`INSERT INTO userstable (username, email, password) VALUES(${username}, ${email}, ${password})`;
     return res.json({
         message: 'User created successfully!',
         body: {
@@ -30,27 +30,27 @@ export const createUser = async ( req: Request, res: Response ): Promise<Respons
                 email,
                 password
             }
-        }
+        },
     });
 }
 
 export const updateUser = async ( req: Request, res: Response ): Promise<Response> => {
     const id = parseInt(req.params.id);
     const { username, email, password } = req.body;
-    await prism.$queryRaw`UPDATE "User" SET username = ${username}, email = ${email}, password = ${password} WHERE id = ${id}`;
+    await prism.$queryRaw`UPDATE userstable SET username = ${username}, email = ${email}, password = ${password} WHERE id = ${id}`;
     return res.json(`User ${id} updated successfully!`);
 }
 
 export const deleteUser = async ( req: Request, res: Response ): Promise<Response> => {
     const id = parseInt(req.params.id)
-    const response = await prism.$queryRaw`DELETE FROM "User" WHERE id = ${id}`;
+    const response = await prism.$queryRaw`DELETE FROM "userstable WHERE id = ${id}`;
     return res.json(`User ${id} deleted successfully!`);
 }
 
 
 
 
-export const getData = async (req: Request, res: Response): Promise<Response> =>{
+/* export const getData = async (req: Request, res: Response): Promise<Response> =>{
     try{
         const response = await prism.$queryRaw`SELECT * FROM "ToDoListTable"`;
         return res.status(200).json(response);
@@ -91,4 +91,4 @@ export const deleteData = async ( req: Request, res: Response ): Promise<Respons
     const id = parseInt(req.params.id)
     const response = await prism.$queryRaw`DELETE FROM "ToDoListTable" WHERE id = ${id}`;
     return res.json(`To-Do List ${id} deleted successfully!`);
-}
+} */

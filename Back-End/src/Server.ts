@@ -4,8 +4,8 @@ import consola, { Consola } from 'consola'
 import cors from 'cors'
 import * as bodyParser from 'body-parser'
 import * as dotenv from 'dotenv'
-
-import indexRoutes from './routes/Auth';
+import cookieParser from "cookie-parser"
+import { auth as AuthRoute } from './routes/Auth';
 
 export class Server{
     public app: express.Application;
@@ -13,6 +13,7 @@ export class Server{
     private prisma: PrismaClient = new PrismaClient();
     public constructor(){
         this.app = express();
+        this.app.use(express.json());
     }
 
     public start(){
@@ -28,12 +29,9 @@ export class Server{
         this.app.use(bodyParser.json())
         this.app.use(bodyParser.urlencoded({extended:true}));
         this.app.use(cors());
-
+        this.app.use(cookieParser());
         dotenv.config();
     }
-
-    //PostgreSQL DataBase
-    //ORM || Prism
 
     private setRequestLogger(){
         this.app.use(async(req, res, next)=>{
@@ -42,6 +40,6 @@ export class Server{
         });
     }
     private setRoutes(){
-        this.app.use(indexRoutes);
+        this.app.use("/api/v1/auth", AuthRoute);
     }
 }
