@@ -20,7 +20,6 @@ export class Server{
         this.setConfig();
         this.setRequestLogger();
         this.setRoutes();
-
         this.app.listen(process.env.PORT, () =>{
             this.logger.success(`Server running successfully on port ${process.env.PORT}`);
         })

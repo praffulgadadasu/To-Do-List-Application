@@ -44,7 +44,6 @@ auth.get('/user', async (req, res) => {
 
 
 auth.post("/login", async (req, res) => {
-    const { email, password } = req.body;
     const user = await prisma.userstable.findUnique({
         where: {
             email: req.body.email,
@@ -62,8 +61,6 @@ auth.post("/login", async (req, res) => {
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000 // 1 day
     })
-    //console.log(user.id)
-    //console.log(token);
     res.send({
         message: "success"
     })
@@ -79,7 +76,6 @@ auth.post("/register", async (req, res) => {
             password: hashedPassword
         },
     });
-    //const token = jwt.sign({ userId: user.id }, "secret");
     return res.status(200).send(user);
 });
 
