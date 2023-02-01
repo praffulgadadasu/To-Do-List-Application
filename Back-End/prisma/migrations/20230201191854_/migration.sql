@@ -4,6 +4,7 @@ CREATE TABLE "userstable" (
     "username" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
+    "role" TEXT NOT NULL,
 
     CONSTRAINT "userstable_pkey" PRIMARY KEY ("id")
 );

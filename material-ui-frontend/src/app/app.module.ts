@@ -19,7 +19,10 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-
+import { CookieService } from 'ngx-cookie-service';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { JWT_OPTIONS } from '@auth0/angular-jwt';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,8 @@ import { MatSortModule } from '@angular/material/sort';
     RegisterComponent,
     LoginComponent,
     HomeComponent,
-    DialogComponent
+    DialogComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +51,11 @@ import { MatSortModule } from '@angular/material/sort';
     MatPaginatorModule,
     MatSortModule
   ],
-  providers: [],
+  providers: [
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
+    CookieService,
+    JwtHelperService
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -15,4 +15,5 @@ model userstable{
   username String
   email String @unique
   password String
+  role String
 }

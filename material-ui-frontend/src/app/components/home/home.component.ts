@@ -7,7 +7,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-
+import { Buffer } from 'buffer';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +15,7 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  name: any[] = [];
   displayedColumns: string[] = ['id', 'list'];
   dataSource!: MatTableDataSource<any>;
 
@@ -22,11 +23,18 @@ export class HomeComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   public to_do_list_Form !: FormGroup;
   constructor( private formBuilder : FormBuilder, private http: HttpClient, private router: Router, private dialog : MatDialog ) { }
-  ngOnInit(): void {
+  ngOnInit() {
     this.to_do_list_Form = this.formBuilder.group({
       to_do_list:['']
     });
     this.getAllLists();
+    const token = localStorage.getItem('token');
+    if (token == null) {
+      return;
+    }
+    let payload= this.parseJwt(token);
+    this.name = payload.username;
+    console.log("payload:- ", payload);
   }
   openDialog() {
     this.dialog.open(DialogComponent, {
@@ -54,5 +62,10 @@ export class HomeComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  parseJwt(token: string) {
+    var base64Payload = token.split('.')[1];
+    var payload = Buffer.from(base64Payload, 'base64');
+    return JSON.parse(payload.toString());
   }
 }
