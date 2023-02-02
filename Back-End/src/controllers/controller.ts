@@ -37,9 +37,20 @@ const prisma = new PrismaClient();
 
 
 export const loginUser = async (req: Request, res: Response): Promise<Response> => {
-    const user = await prisma.userstable.findUnique({
+    const user = await prisma.userstable.findFirst({
         where: {
-            email: req.body.email,
+            AND: [
+                {
+                    email: {
+                        equals: req.body.email 
+                    }
+                },
+                {
+                    role: {
+                        equals: req.body.role
+                    }
+                },
+            ],
         },
     });
     if (!user)

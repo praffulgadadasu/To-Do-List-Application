@@ -26,13 +26,13 @@ export class RoleGuard implements CanActivate {
     }
     let payload= parseJwt(token);
     console.log("payload:- ", payload);
-    console.log(payload.email);
+    console.log(payload.role);
+    console.log(expectedRole);
     if( !this.authService.isAuth() || payload.role !== expectedRole){
       console.log('Unauthorised User');
       this.router.navigate(['login']);
       return false;
     }
-
     return true;
   }
 

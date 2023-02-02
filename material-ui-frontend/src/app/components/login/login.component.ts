@@ -13,26 +13,42 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class LoginComponent implements OnInit {
   Roles: any = ['Admin', 'User'];
-  
+
   public loginForm !: FormGroup;
-  constructor( private formBuilder : FormBuilder, private http: HttpClient, private router: Router, private frontEndService: FrontendService, private cookie: CookieService ) { }
- 
-  ngOnInit(): void{
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router, private frontEndService: FrontendService, private cookie: CookieService) { }
+
+  ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email:['', Validators.required],
-      password:['', Validators.required],
-      role:['', Validators.required]
-    })
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      role: ['', Validators.required]
+    });
+    /* this.adminForm = this.formBuilder.group({
+      email:['admin@gmail.com', Validators.required],
+      password:['admin', Validators.required],
+      role:['Admin', Validators.required]
+    }) */
   }
-  
-  login(){
-    const data = this.loginForm.value;
-    
-    this.frontEndService.logInUser(data).subscribe((res:any) =>{
+
+  login() {
+    const userData = this.loginForm.value;
+    this.frontEndService.logInUser(userData).subscribe((res: any) => {
+      if(userData.role == "Admin"){
+        localStorage.setItem('token', res.token)
+        this.router.navigate(['admin']);
+      }
       console.log(res);
       localStorage.setItem('token', res.token)
-      this.router.navigate(['home'])
+      this.router.navigate(['home']);
     });
+
+
+    /*  this.frontEndService.logInUser(adminData).subscribe((res:any) =>{
+       console.log(res);
+       localStorage.setItem('token', res.token)
+       this.router.navigate(['admin']);
+     });
+    */
 
     /* let authFlow = this.frontEndService
     .logInUser(data)
