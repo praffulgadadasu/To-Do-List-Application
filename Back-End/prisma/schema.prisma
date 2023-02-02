@@ -16,4 +16,13 @@ model userstable{
   email String @unique
   password String
   role String
+  todolists ToDoList[]
+}
+
+model ToDoList{
+  id Int @id @default(autoincrement())
+  title String
+  description String
+  user userstable @relation(fields:[userId],references:[id])
+  userId String
 }

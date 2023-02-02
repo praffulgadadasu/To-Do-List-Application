@@ -26,7 +26,9 @@ export class FrontendService {
     }
     return true;
   }
-
+ /*  logOutUser(res: any){
+    return this.http.post('http://localhost:3000/api/v1/auth/login', res)
+  } */
 /*   saveUserToLocalStorage(user: UserResponseModel){
     this.userProfile.next(user);
     localStorage.setItem('user-profile', JSON.stringify(user))

@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 const prisma = new PrismaClient();
-
+import { Buffer } from 'buffer';
 
 
 
@@ -90,13 +90,13 @@ export const registerUser = async (req: Request, res: Response): Promise<Respons
     return res.status(200).send(user);
 }
 
-export const logoutUser = async (req: Request, res: Response): Promise<Response> => {
+/* export const logoutUser = async (req: Request, res: Response): Promise<Response> => {
     res.cookie('jwt', '', { maxAge: 0 })
     return res.send({
         message: "success"
     })
 }
-
+ */
 
 
 /* export const getUsers = async (req: Request, res: Response): Promise<Response> =>{
@@ -147,9 +147,20 @@ export const deleteUser = async ( req: Request, res: Response ): Promise<Respons
 
 
 
-/* export const getData = async (req: Request, res: Response): Promise<Response> =>{
+export const getData = async (req: Request, res: Response): Promise<Response> =>{
+    /* function parseJwt(token: string) {
+        var base64Payload = token.split('.')[1];
+        var payload = Buffer.from(base64Payload, 'base64');
+        return JSON.parse(payload.toString());
+    }
+    const token = localStorage.getItem('token');
+    if (token == null) {
+      return res.status(500).json('Internal Server Error');
+    }
+    let payload= parseJwt(token);
+    const email = payload.email; */
     try{
-        const response = await prism.$queryRaw`SELECT * FROM "ToDoListTable"`;
+        const response = await prisma.$queryRaw`SELECT * FROM "ToDoList"`;
         return res.status(200).json(response);
     }
     catch(e){
@@ -160,18 +171,23 @@ export const deleteUser = async ( req: Request, res: Response ): Promise<Respons
 
 export const getDatabyId = async ( req: Request, res: Response ): Promise<Response> => {
     const id = parseInt(req.params.id)
-    const response = await prism.$queryRaw`SELECT * FROM "ToDoListTable" WHERE id = ${id}`;
+    const response = await prisma.$queryRaw`SELECT * FROM "ToDoList" WHERE id = ${id}`;
     return res.json(response);
 }
 
 export const createData = async ( req: Request, res: Response ): Promise<Response> => {
-    const to_do_list = req.body.to_do_list;
-    const response =  await prism.$queryRaw`INSERT INTO "ToDoListTable" ("ToDoList") VALUES(${to_do_list})`;
+    const title = req.body.title;
+    const description = req.body.description;
+    const userId = req.body.userId;
+
+    const response =  await prisma.$queryRaw`INSERT INTO "ToDoList" ("title", "description", "userId") VALUES(${title}, ${description}, ${userId})`;
     return res.json({
         message: 'To-Do List created successfully!',
         body: {
             data:{
-                to_do_list
+                title,
+                description,
+                userId
             }
         }
     });
@@ -180,12 +196,12 @@ export const createData = async ( req: Request, res: Response ): Promise<Respons
 export const updateData = async ( req: Request, res: Response ): Promise<Response> => {
     const id = parseInt(req.params.id);
     const data = req.body.to_do_list;
-    await prism.$queryRaw`UPDATE "ToDoListTable" SET ToDoList = ${data} WHERE id = ${id}`;
+    await prisma.$queryRaw`UPDATE "ToDoList" SET ToDoList = ${data} WHERE id = ${id}`;
     return res.json(`To-Do List ${id} updated successfully!`);
 }
 
 export const deleteData = async ( req: Request, res: Response ): Promise<Response> => {
     const id = parseInt(req.params.id)
-    const response = await prism.$queryRaw`DELETE FROM "ToDoListTable" WHERE id = ${id}`;
+    const response = await prisma.$queryRaw`DELETE FROM "ToDoList" WHERE id = ${id}`;
     return res.json(`To-Do List ${id} deleted successfully!`);
-} */
+}

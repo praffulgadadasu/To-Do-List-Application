@@ -4,10 +4,10 @@ export const auth = Router();
 const prisma = new PrismaClient();
 
 
-import { loginUser, registerUser, logoutUser } from "../controllers/controller";
+import { loginUser, registerUser } from "../controllers/controller";
 
 //import { getUsers, getUserbyId, createUser, deleteUser, updateUser } from '../controllers/controller'
-//import { getData, getDatabyId, createData, updateData, deleteData } from '../controllers/controller'
+import { getData, getDatabyId, createData, updateData, deleteData } from '../controllers/controller'
 
 /* auth.get('/users', getUsers);
 auth.get('/users/:id', getUserbyId);
@@ -19,15 +19,15 @@ auth.delete('/users/:id', deleteUser);
 //auth.get('/user', getUser);
 auth.post('/login', loginUser)
 auth.post('/register', registerUser);
-auth.post('/logout', logoutUser)
+//auth.post('/logout', logoutUser)
 
 
-/* auth.get('/todolist', getData);
+auth.get('/todolist', getData);
 auth.get('/todolist/:id', getDatabyId);
 auth.post('/todolist', createData);
 auth.put('/todolist/:id', updateData);
 auth.delete('/todolist/:id', deleteData);
- */
+
 
 
 

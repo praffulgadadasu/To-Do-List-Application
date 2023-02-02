@@ -1,8 +1,12 @@
 <form class="example-form" [formGroup]="to_do_list_Form" (ngSubmit)="save()">
     <hi mat-dialog-title>ADD TO-DO LIST</hi>
     <mat-form-field class="example-full-width">
+        <mat-label>Title</mat-label>
+        <input formControlName="title" matInput placeholder="Ex. Pizza" value="Sushi">
+      </mat-form-field>
+    <mat-form-field class="example-full-width">
         <mat-label>To-Do List</mat-label>
-        <textarea formControlName="to_do_list" matInput placeholder="Ex. I need to do..."></textarea>
+        <textarea formControlName="description" matInput placeholder="Ex. I need to do..."></textarea>
     </mat-form-field>
     <mat-dialog-actions [align]="'end'">
         <button color="warn" mat-raised-button class="btn-block" mat-dialog-close>Close</button>

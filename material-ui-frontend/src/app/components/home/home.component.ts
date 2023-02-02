@@ -8,6 +8,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { Buffer } from 'buffer';
+import { FrontendService } from 'src/app/services/frontend.service';
 
 @Component({
   selector: 'app-home',
@@ -16,13 +17,14 @@ import { Buffer } from 'buffer';
 })
 export class HomeComponent implements OnInit {
   name: any[] = [];
-  displayedColumns: string[] = ['id', 'list'];
+  email: any[] = [];
+  displayedColumns: string[] = ['id', 'username', 'title', 'description'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   public to_do_list_Form !: FormGroup;
-  constructor( private formBuilder : FormBuilder, private http: HttpClient, private router: Router, private dialog : MatDialog ) { }
+  constructor( private formBuilder : FormBuilder, private http: HttpClient, private router: Router, private dialog : MatDialog, private frontEndService: FrontendService ) { }
   ngOnInit() {
     this.to_do_list_Form = this.formBuilder.group({
       to_do_list:['']
@@ -34,6 +36,7 @@ export class HomeComponent implements OnInit {
     }
     let payload= this.parseJwt(token);
     this.name = payload.username;
+    this.email = payload.email;
     console.log("payload:- ", payload);
   }
   openDialog() {
@@ -43,7 +46,7 @@ export class HomeComponent implements OnInit {
     });
   }
   getAllLists(){
-    this.http.get<any>("http://localhost:3000/todolist")
+    this.http.get<any>("http://localhost:3000/api/v1/auth/todolist")
     .subscribe({
       next:(res) =>{
         console.log(res)
