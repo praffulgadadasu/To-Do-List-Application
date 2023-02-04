@@ -18,27 +18,24 @@ export class DialogComponent implements OnInit {
     if (token == null) {
       return;
     }
-    let payload= this.parseJwt(token);
+    let payload = this.parseJwt(token);
     console.log(payload._id);
     this.to_do_list_Form = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      userId: ['payload._id']
+      userEmail: [payload.email]
     })
-    
+
   }
   save() {
-    if (this.to_do_list_Form.valid) {
-      this.http.post<any>("http://localhost:3000/api/v1/auth/todolist", this.to_do_list_Form.value)
-        .subscribe(res => {
-          alert("To-Do List Created Successfully!");
-          this.to_do_list_Form.reset();
-          this.dialogRef.close();
-        }, err => {
-          alert("Something went wrong. Try Again Later!")
-        })
-    }
-    alert("List Cannot be Empty!");
+    this.http.post<any>("http://localhost:3000/api/v1/auth/todolist", this.to_do_list_Form.value)
+      .subscribe(res => {
+        alert("To-Do List Created Successfully!");
+        this.to_do_list_Form.reset();
+        this.dialogRef.close();
+      }, err => {
+        alert("Something went wrong. Try Again Later!")
+      })
   }
   parseJwt(token: string) {
     var base64Payload = token.split('.')[1];

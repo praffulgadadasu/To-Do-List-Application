@@ -23,6 +23,6 @@ model ToDoList{
   id Int @id @default(autoincrement())
   title String
   description String
-  user userstable @relation(fields:[userId],references:[id])
-  userId String
+  user userstable @relation(fields:[userEmail],references:[email])
+  userEmail String
 }

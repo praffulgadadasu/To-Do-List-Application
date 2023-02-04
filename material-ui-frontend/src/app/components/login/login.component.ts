@@ -23,42 +23,20 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
       role: ['', Validators.required]
     });
-    /* this.adminForm = this.formBuilder.group({
-      email:['admin@gmail.com', Validators.required],
-      password:['admin', Validators.required],
-      role:['Admin', Validators.required]
-    }) */
   }
 
   login() {
     const userData = this.loginForm.value;
     this.frontEndService.logInUser(userData).subscribe((res: any) => {
-      if(userData.role == "Admin"){
+      console.log(res);
+      if (userData.role == "Admin") {
         localStorage.setItem('token', res.token)
         this.router.navigate(['admin']);
       }
-      console.log(res);
-      localStorage.setItem('token', res.token)
-      this.router.navigate(['home']);
-    });
-
-
-    /*  this.frontEndService.logInUser(adminData).subscribe((res:any) =>{
-       console.log(res);
-       localStorage.setItem('token', res.token)
-       this.router.navigate(['admin']);
-     });
-    */
-
-    /* let authFlow = this.frontEndService
-    .logInUser(data)
-    .pipe(
-      switchMap(() => this.frontEndService.Userprofile()));
-    
-    authFlow.subscribe({
-      next:(user: UserResponseModel) => {
-        this.frontEndService.saveUserToLocalStorage(user);
+      if (userData.role == "User") {
+        localStorage.setItem('token', res.token)
+        this.router.navigate(['home']);
       }
-    }) */
+    });
   }
 }
