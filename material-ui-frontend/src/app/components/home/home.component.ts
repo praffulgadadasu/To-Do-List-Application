@@ -50,8 +50,8 @@ export class HomeComponent implements OnInit {
   }
   openDialog() {
     this.dialog.open(DialogComponent, {
-      width: '25%',
-      height: '21%'
+      width: '45%',
+      height: '31%'
     });
   }
   getAllLists() {
