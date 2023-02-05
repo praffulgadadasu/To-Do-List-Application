@@ -1,5 +1,5 @@
 <form class="example-form" [formGroup]="to_do_list_Form" (ngSubmit)="save()">
-    <hi mat-dialog-title>ADD TO-DO LIST</hi>
+    <hi mat-dialog-title>{{Title}}</hi>
     <mat-form-field class="example-full-width">
         <mat-label>Title</mat-label>
         <input formControlName="title" matInput placeholder="Ex. Pizza" value="Sushi">

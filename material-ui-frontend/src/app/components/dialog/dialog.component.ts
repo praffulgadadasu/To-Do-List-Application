@@ -14,6 +14,7 @@ export class DialogComponent implements OnInit {
   id: any[] = [];
   public to_do_list_Form !: FormGroup;
   actionBtn : string = "Save";
+  Title: string = "Add To-Do List"
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router, private dialogRef: MatDialogRef<DialogComponent>, @Inject(MAT_DIALOG_DATA) public editData: any, private frontendservice: FrontendService) { }
   ngOnInit(): void {
     const token = localStorage.getItem('token');
@@ -28,6 +29,7 @@ export class DialogComponent implements OnInit {
       userEmail: [payload.email]
     })
     if(this.editData){
+      this.Title = "Update To-Do List";
       this.actionBtn = "Update";
       this.to_do_list_Form.controls['title'].setValue(this.editData.title);
       this.to_do_list_Form.controls['description'].setValue(this.editData.description);

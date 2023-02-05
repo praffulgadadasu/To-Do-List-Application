@@ -10,7 +10,7 @@
   </mat-toolbar>
   <br>
   <div [align]="'center'">
-    <button mat-raised-button color="primary" routerLink="/login" (click)="logOutUser()" class="btn-block">SignOut</button>
+    <button mat-raised-button color="primary" (click)="logOutUser()" class="btn-block">SignOut</button>
   </div>
 </form>
 <div class="container">
@@ -50,6 +50,9 @@
             </button>
             <button mat-icon-button class="example-icon" color="warn" (click)="deleteList(row.id)" aria-label="Example icon-button with menu icon">
               <mat-icon>delete_outline</mat-icon>
+            </button>
+            <button mat-icon-button class="example-icon" (click)="translateList(row)"  aria-label="Example icon-button with menu icon">
+              <mat-icon>more_vert</mat-icon>
             </button>
           </td>
         </ng-container>

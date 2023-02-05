@@ -4,6 +4,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { TranslateComponent } from './components/translate/translate.component';
 import { RoleGuard } from './guards/role.guard';
 
 const routes: Routes = [
@@ -11,7 +12,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component:LoginComponent },
   { path: 'admin', component: AdminComponent, canActivate:[RoleGuard], data:{expectedRole: 'Admin'} },
-  { path: 'register', component: RegisterComponent }
+  { path: 'register', component: RegisterComponent },
+  { path: 'translate', component:TranslateComponent }
 ];
 
 

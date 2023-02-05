@@ -1,0 +1,36 @@
+<form>
+    <hi mat-dialog-title>{{Title}}</hi>
+    <div class="row" style="margin-top: 30px;">
+        <div class="col-5">
+            <div class="form-group">
+                <label for="input-text">Description</label>
+                <textarea id='input-text' name="input-text" [(ngModel)]="inputText" class="form-control" 
+                    rows="10">
+                </textarea>
+            </div>
+        </div>
+        <div class="col-2" style="vertical-align: middle;">
+            <div class="form-group">
+                <label for="select-language">Choose Language</label>
+                <select class="form-control" (change)="translate()"  id='select-language' name="select-language" [(ngModel)]="targetLanguage">
+                    <option value="en">English</option>
+                    <option value="bn">Bengali</option>
+                    <option value="hi">Hindi</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    <option value="ja">Japanese</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="form-group">
+                <label for="translated-text">Translated Text</label>
+                <textarea class="form-control" id='translated-text' name="translated-text" [(ngModel)]="transalatedText" rows="10"></textarea>
+            </div>
+        </div>
+    </div>
+    <mat-dialog-actions [align]="'end'">
+        <button color="warn" mat-raised-button class="btn-block" mat-dialog-close>Close</button>
+        <button color="primary" mat-raised-button class="btn-block" (click)="translateSave()">Translate</button>
+    </mat-dialog-actions>
+</form>

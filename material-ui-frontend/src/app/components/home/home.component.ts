@@ -9,6 +9,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Buffer } from 'buffer';
 import { FrontendService } from 'src/app/services/frontend.service';
+import { TranslateComponent } from '../translate/translate.component';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -34,6 +35,12 @@ export class HomeComponent implements OnInit {
     
   }
   ngOnInit() {
+    if (!localStorage.getItem('foo')) { 
+      localStorage.setItem('foo', 'no reload') 
+      location.reload() 
+    } else {
+      localStorage.removeItem('foo') 
+    }
     this.to_do_list_Form = this.formBuilder.group({
       to_do_list: ['']
     });
@@ -44,7 +51,6 @@ export class HomeComponent implements OnInit {
       return;
     }
     let payload = this.parseJwt(token);
-    console.log(payload);
     this.name = payload.username;
   
   }
@@ -65,6 +71,17 @@ export class HomeComponent implements OnInit {
       data: row
     }).afterClosed().subscribe(val => {
       if(val === 'update'){
+        this.getAllLists();
+      }
+    })
+  }
+  translateList(row: any){
+    this.dialog.open(TranslateComponent,{
+      width: '70%',
+      height: '45%',
+      data: row
+    }).afterClosed().subscribe(val => {
+      if(val === 'translate'){
         this.getAllLists();
       }
     })
@@ -103,5 +120,6 @@ export class HomeComponent implements OnInit {
   }
   logOutUser(){
     this.frontEndService.logout();
+    this.router.navigate(['login']);
   }
 }
