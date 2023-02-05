@@ -1,0 +1,15 @@
+<form class="example-form">
+  <mat-toolbar color="primary">
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+          <mat-icon>dashboard</mat-icon>
+      </button>
+      <span>To-Do List Application</span>
+      <span class="example-spacer"></span>
+      <span style="margin-right: 5%;">Welcome {{name}}  </span>
+      <button mat-raised-button class="btn-block" style="margin-right: 1%;">Add List</button>
+  </mat-toolbar>
+  <br>
+  <div [align]="'center'">
+      <button mat-raised-button color="primary" routerLink="/login" class="btn-block">SignOut</button>
+  </div>
+</form>
