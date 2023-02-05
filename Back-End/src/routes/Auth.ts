@@ -2,7 +2,7 @@ import { PrismaClient, userstable } from "@prisma/client";
 import { Router } from "express";
 export const auth = Router();
 
-import { loginUser, registerUser } from "../controllers/controller";
+import { loginUser, registerUser, logoutUser } from "../controllers/controller";
 
 //import { getUsers, getUserbyId, createUser, deleteUser, updateUser } from '../controllers/controller'
 import { getData, getDatabyId, createData, updateData, deleteData } from '../controllers/controller'
@@ -20,7 +20,7 @@ auth.delete('/users/:id', deleteUser);
 //auth.get('/user', getUser);
 auth.post('/login', loginUser)
 auth.post('/register', registerUser);
-//auth.post('/logout', logoutUser)
+auth.get('/logout', logoutUser)
 
 
 

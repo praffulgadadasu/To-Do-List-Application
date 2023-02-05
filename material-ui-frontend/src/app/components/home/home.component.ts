@@ -10,7 +10,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Buffer } from 'buffer';
 import { FrontendService } from 'src/app/services/frontend.service';
 
-
 const httpOptions = {
   headers: new HttpHeaders({
     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -22,8 +21,9 @@ const httpOptions = {
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  private refreshed = false;
   name: any[] = [];
-  displayedColumns: string[] = ['id', 'userEmail', 'title', 'description'];
+  displayedColumns: string[] = ['id', 'title', 'description', 'action'];
   dataSource!: MatTableDataSource<any>;
   
 
@@ -52,7 +52,33 @@ export class HomeComponent implements OnInit {
     this.dialog.open(DialogComponent, {
       width: '45%',
       height: '31%'
-    });
+    }).afterClosed().subscribe(val => {
+      if(val === 'save'){
+        this.getAllLists();
+      }
+    })
+  }
+  editList(row: any){
+    this.dialog.open(DialogComponent,{
+      width: '45%',
+      height: '31%',
+      data: row
+    }).afterClosed().subscribe(val => {
+      if(val === 'update'){
+        this.getAllLists();
+      }
+    })
+  }
+  deleteList(id: number){
+    this.frontEndService.delList(id).subscribe({
+      next:(res) => {
+        alert("List Deleted Successfully!")
+        this.getAllLists();
+      },
+      error: () => {
+        alert("Something went wrong. Try Again Later!")
+      }
+    })
   }
   getAllLists() {
     this.http.get<any[]>('http://localhost:3000/api/v1/auth/todolist', httpOptions)
@@ -74,5 +100,8 @@ export class HomeComponent implements OnInit {
     var base64Payload = token.split('.')[1];
     var payload = Buffer.from(base64Payload, 'base64');
     return JSON.parse(payload.toString());
+  }
+  logOutUser(){
+    this.frontEndService.logout();
   }
 }

@@ -57,13 +57,13 @@ export const registerUser = async (req: Request, res: Response): Promise<Respons
     return res.status(200).send(user);
 }
 
-/* export const logoutUser = async (req: Request, res: Response): Promise<Response> => {
+export const logoutUser = async (req: Request, res: Response): Promise<Response> => {
     res.cookie('jwt', '', { maxAge: 0 })
     return res.send({
         message: "success"
     })
 }
- */
+
 
 
 /* export const getUsers = async (req: Request, res: Response): Promise<Response> =>{
@@ -171,13 +171,21 @@ export const createData = async (req: Request, res: Response): Promise<Response>
 
 export const updateData = async (req: Request, res: Response): Promise<Response> => {
     const id = parseInt(req.params.id);
-    const data = req.body.to_do_list;
-    await prisma.$queryRaw`UPDATE "ToDoList" SET ToDoList = ${data} WHERE id = ${id}`;
+    const data = req.body;
+    const title = req.body.title;
+    const description = req.body.description;
+    await prisma.toDoList.update({
+        where: { id: id },
+        data: { title: title, description: description }
+    });
     return res.json(`To-Do List ${id} updated successfully!`);
 }
 
 export const deleteData = async (req: Request, res: Response): Promise<Response> => {
     const id = parseInt(req.params.id)
-    const response = await prisma.$queryRaw`DELETE FROM "ToDoList" WHERE id = ${id}`;
+    //const response = await prisma.$queryRaw`DELETE FROM "ToDoList" WHERE id = ${id}`;
+    await prisma.toDoList.delete({
+        where: { id: id },
+    });
     return res.json(`To-Do List ${id} deleted successfully!`);
 }
