@@ -9,7 +9,7 @@ import { RoleGuard } from './guards/role.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, canActivate:[RoleGuard], data:{expectedRole: 'User'} },
   { path: 'login', component:LoginComponent },
   { path: 'admin', component: AdminComponent, canActivate:[RoleGuard], data:{expectedRole: 'Admin'} },
   { path: 'register', component: RegisterComponent },
