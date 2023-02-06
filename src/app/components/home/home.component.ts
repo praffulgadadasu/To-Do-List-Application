@@ -22,7 +22,6 @@ const httpOptions = {
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  private refreshed = false;
   name: any[] = [];
   displayedColumns: string[] = ['title', 'description', 'action'];
   dataSource!: MatTableDataSource<any>;
