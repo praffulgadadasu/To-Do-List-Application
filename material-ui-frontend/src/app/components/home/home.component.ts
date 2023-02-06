@@ -24,7 +24,7 @@ const httpOptions = {
 export class HomeComponent implements OnInit {
   private refreshed = false;
   name: any[] = [];
-  displayedColumns: string[] = ['id', 'title', 'description', 'action'];
+  displayedColumns: string[] = ['title', 'description', 'action'];
   dataSource!: MatTableDataSource<any>;
   
 
