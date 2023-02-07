@@ -7,11 +7,9 @@
     <span class="example-spacer"></span>
     <span style="margin-right: 5%;">Welcome {{name}} </span>
     <button mat-raised-button class="btn-block" style="margin-right: 1%;" (click)="openDialog()">Add List</button>
+    <button mat-raised-button color="warn" (click)="logOutUser()" class="btn-block">SignOut</button>
   </mat-toolbar>
   <br>
-  <div [align]="'center'">
-    <button mat-raised-button color="primary" (click)="logOutUser()" class="btn-block">SignOut</button>
-  </div>
 </form>
 <div class="container">
   <div style="margin-top: 10px;">
