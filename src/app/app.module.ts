@@ -13,7 +13,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { AngularMaterialModule } from './angular-material.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { MatTableModule } from '@angular/material/table';
@@ -47,7 +46,6 @@ import { TranslateComponent } from './components/translate/translate.component';
     FormsModule,
     AppRoutingModule,
     MatToolbarModule,
-    AngularMaterialModule,
     MatDialogModule,
     MatTableModule,
     MatPaginatorModule,

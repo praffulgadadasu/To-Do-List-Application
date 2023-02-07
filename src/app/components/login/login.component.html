@@ -1,8 +1,9 @@
 <!-- Toolbar -->
 <mat-toolbar color="primary" class="app-header">
     <span class="nav-tool-items">
-      <a mat-button routerLink="/login" routerLinkActive="active">Log in</a>
-      <a mat-button style="margin-left: 5%;" mat-raised-button routerLink="/register" routerLinkActive="active">Register</a>
+        <a mat-button routerLink="/login" routerLinkActive="active">Log in</a>
+        <a mat-button style="margin-left: 5%;" mat-raised-button routerLink="/register"
+            routerLinkActive="active">Register</a>
     </span>
 </mat-toolbar>
 <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
@@ -13,18 +14,18 @@
         <form [formGroup]="loginForm" class="example-form" (ngSubmit)="login()">
             <mat-card-content>
                 <mat-form-field class="example-full-width">
-                    <input formControlName = "email" type="email" matInput placeholder="Email">
+                    <input formControlName="email" type="email" matInput placeholder="Email">
                 </mat-form-field>
                 <mat-form-field class="example-full-width">
-                    <input formControlName = "password" matInput type="password" placeholder="Password">
+                    <input formControlName="password" matInput type="password" placeholder="Password">
                 </mat-form-field>
                 <mat-form-field class="example-full-width">
                     <mat-label>Choose a role...</mat-label>
                     <mat-select formControlName="role">
-                      <mat-option [value]="roles" *ngFor="let roles of Roles">{{roles}}
-                      </mat-option>
+                        <mat-option [value]="roles" *ngFor="let roles of Roles">{{roles}}
+                        </mat-option>
                     </mat-select>
-                  </mat-form-field>
+                </mat-form-field>
             </mat-card-content>
             <button mat-stroked-button color="accent" class="btn-block">Log in</button>
         </form>

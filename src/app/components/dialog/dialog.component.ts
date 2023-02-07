@@ -13,7 +13,7 @@ import { FrontendService } from 'src/app/services/frontend.service';
 export class DialogComponent implements OnInit {
   id: any[] = [];
   public to_do_list_Form !: FormGroup;
-  actionBtn : string = "Save";
+  actionBtn: string = "Save";
   Title: string = "Add To-Do List"
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router, private dialogRef: MatDialogRef<DialogComponent>, @Inject(MAT_DIALOG_DATA) public editData: any, private frontendservice: FrontendService) { }
   ngOnInit(): void {
@@ -28,7 +28,7 @@ export class DialogComponent implements OnInit {
       description: ['', Validators.required],
       userEmail: [payload.email]
     })
-    if(this.editData){
+    if (this.editData) {
       this.Title = "Update To-Do List";
       this.actionBtn = "Update";
       this.to_do_list_Form.controls['title'].setValue(this.editData.title);
@@ -36,34 +36,34 @@ export class DialogComponent implements OnInit {
     }
   }
   save() {
-    if(!this.editData){
+    if (!this.editData) {
       this.http.post<any>("http://localhost:3000/api/v1/auth/todolist", this.to_do_list_Form.value)
-      .subscribe(res => {
-        alert("To-Do List Created Successfully!");
-        this.to_do_list_Form.reset();
-        this.dialogRef.close('save');
-      }, err => {
-        alert("Something went wrong. Try Again Later!")
-      })
-    }else{
+        .subscribe(res => {
+          alert("To-Do List Created Successfully!");
+          this.to_do_list_Form.reset();
+          this.dialogRef.close('save');
+        }, err => {
+          alert("Something went wrong. Try Again Later!")
+        })
+    } else {
       this.updateList()
     }
   }
-  updateList(){
+  updateList() {
     this.frontendservice.putList(this.to_do_list_Form.value, this.editData.id)
-    .subscribe({
-      next:(res) => {
-        alert("List Updated Successfully!");
-        this.to_do_list_Form.reset();
-        this.dialogRef.close('update');
-      },
-      error:() => {
-        alert("Something went wrong. Try Again Later!")
-      }
-    })
+      .subscribe({
+        next: (res) => {
+          alert("List Updated Successfully!");
+          this.to_do_list_Form.reset();
+          this.dialogRef.close('update');
+        },
+        error: () => {
+          alert("Something went wrong. Try Again Later!")
+        }
+      })
   }
 
-  deleteList(){
+  deleteList() {
     this.frontendservice.delList(this.editData.id)
   }
 

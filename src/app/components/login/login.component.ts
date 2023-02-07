@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { FrontendService } from 'src/app/services/frontend.service';
-import { switchMap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -28,7 +27,6 @@ export class LoginComponent implements OnInit {
   login() {
     const userData = this.loginForm.value;
     this.frontEndService.logInUser(userData).subscribe((res: any) => {
-      console.log(res);
       if (userData.role == "Admin") {
         localStorage.setItem('token', res.token)
         this.router.navigate(['admin']);

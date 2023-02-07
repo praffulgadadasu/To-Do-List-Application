@@ -4,15 +4,15 @@
         <div class="col-5">
             <div class="form-group">
                 <label for="input-text">Description</label>
-                <textarea id='input-text' name="input-text" [(ngModel)]="inputText" class="form-control" 
-                    rows="10">
+                <textarea id='input-text' name="input-text" [(ngModel)]="inputText" class="form-control" rows="10">
                 </textarea>
             </div>
         </div>
         <div class="col-2" style="vertical-align: middle;">
             <div class="form-group">
                 <label for="select-language">Choose Language</label>
-                <select class="form-control" (change)="translate()"  id='select-language' name="select-language" [(ngModel)]="targetLanguage">
+                <select class="form-control" (change)="translate()" id='select-language' name="select-language"
+                    [(ngModel)]="targetLanguage">
                     <option value="en">English</option>
                     <option value="bn">Bengali</option>
                     <option value="hi">Hindi</option>
@@ -26,7 +26,8 @@
         <div class="col-5">
             <div class="form-group">
                 <label for="translated-text">Translated Text</label>
-                <textarea class="form-control" id='translated-text' name="translated-text" [(ngModel)]="transalatedText" rows="10"></textarea>
+                <textarea class="form-control" id='translated-text' name="translated-text" [(ngModel)]="transalatedText"
+                    rows="10"></textarea>
             </div>
         </div>
     </div>

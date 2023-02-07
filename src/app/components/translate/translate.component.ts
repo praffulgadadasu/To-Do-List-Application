@@ -11,7 +11,7 @@ import { FrontendService } from 'src/app/services/frontend.service';
   templateUrl: './translate.component.html',
   styleUrls: ['./translate.component.css']
 })
-export class TranslateComponent implements OnInit{
+export class TranslateComponent implements OnInit {
   public to_do_list_Form !: FormGroup;
   Title: string = 'Google Cloud Translation API'
   targetLanguage: string = '';
@@ -19,8 +19,8 @@ export class TranslateComponent implements OnInit{
   transalatedText = '';
   title = 'ng-google-translate';
   constructor(private googleTranslationService: GoogleTranslationService, @Inject(MAT_DIALOG_DATA) public translateData: any
-  , private formBuilder: FormBuilder, private http: HttpClient, private router: Router, private frontendservice: FrontendService,
-  private dialogRef: MatDialogRef<TranslateComponent>
+    , private formBuilder: FormBuilder, private http: HttpClient, private router: Router, private frontendservice: FrontendService,
+    private dialogRef: MatDialogRef<TranslateComponent>
   ) {
 
   }
@@ -29,7 +29,7 @@ export class TranslateComponent implements OnInit{
       title: ['', Validators.required],
       description: ['', Validators.required]
     })
-    
+
   }
   translate() {
     let model = {
@@ -37,22 +37,22 @@ export class TranslateComponent implements OnInit{
       "target": this.targetLanguage
     };
     this.googleTranslationService.translate(model).subscribe((response: any) => {
-    this.transalatedText = response.data.translations[0].translatedText
-    this.to_do_list_Form.controls['title'].setValue(this.translateData.title)
-    this.to_do_list_Form.controls['description'].setValue(this.transalatedText)
+      this.transalatedText = response.data.translations[0].translatedText
+      this.to_do_list_Form.controls['title'].setValue(this.translateData.title)
+      this.to_do_list_Form.controls['description'].setValue(this.transalatedText)
     })
   }
-  translateSave(){
+  translateSave() {
     this.frontendservice.putList(this.to_do_list_Form.value, this.translateData.id)
-    .subscribe({
-      next:(res) => {
-        alert("List Updated Successfully!");
-        this.to_do_list_Form.reset();
-        this.dialogRef.close('translate');
-      },
-      error:() => {
-        alert("Something went wrong. Try Again Later!")
-      }
-    })
+      .subscribe({
+        next: (res) => {
+          alert("List Updated Successfully!");
+          this.to_do_list_Form.reset();
+          this.dialogRef.close('translate');
+        },
+        error: () => {
+          alert("Something went wrong. Try Again Later!")
+        }
+      })
   }
 }

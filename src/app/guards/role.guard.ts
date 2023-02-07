@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { FrontendService } from '../services/frontend.service';
-import decode from 'jwt-decode';
 import { Buffer } from 'buffer';
 
 @Injectable({
@@ -24,12 +22,8 @@ export class RoleGuard implements CanActivate {
       var payload = Buffer.from(base64Payload, 'base64');
       return JSON.parse(payload.toString());
     }
-    let payload= parseJwt(token);
-    console.log("payload:- ", payload);
-    console.log(payload.role);
-    console.log(expectedRole);
-    if( !this.authService.isAuth() || payload.role !== expectedRole){
-      console.log('Unauthorised User');
+    let payload = parseJwt(token);
+    if (!this.authService.isAuth() || payload.role !== expectedRole) {
       this.router.navigate(['login']);
       return false;
     }

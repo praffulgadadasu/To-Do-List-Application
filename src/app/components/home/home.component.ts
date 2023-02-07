@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -25,20 +25,20 @@ export class HomeComponent implements OnInit {
   name: any[] = [];
   displayedColumns: string[] = ['title', 'description', 'action'];
   dataSource!: MatTableDataSource<any>;
-  
+
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   public to_do_list_Form !: FormGroup;
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router, private dialog: MatDialog, private frontEndService: FrontendService) {
-    
+
   }
   ngOnInit() {
-    if (!localStorage.getItem('foo')) { 
-      localStorage.setItem('foo', 'no reload') 
-      location.reload() 
+    if (!localStorage.getItem('foo')) {
+      localStorage.setItem('foo', 'no reload')
+      location.reload()
     } else {
-      localStorage.removeItem('foo') 
+      localStorage.removeItem('foo')
     }
     this.to_do_list_Form = this.formBuilder.group({
       to_do_list: ['']
@@ -51,43 +51,43 @@ export class HomeComponent implements OnInit {
     }
     let payload = this.parseJwt(token);
     this.name = payload.username;
-  
+
   }
   openDialog() {
     this.dialog.open(DialogComponent, {
       width: '45%',
       height: '31%'
     }).afterClosed().subscribe(val => {
-      if(val === 'save'){
+      if (val === 'save') {
         this.getAllLists();
       }
     })
   }
-  editList(row: any){
-    this.dialog.open(DialogComponent,{
+  editList(row: any) {
+    this.dialog.open(DialogComponent, {
       width: '45%',
       height: '31%',
       data: row
     }).afterClosed().subscribe(val => {
-      if(val === 'update'){
+      if (val === 'update') {
         this.getAllLists();
       }
     })
   }
-  translateList(row: any){
-    this.dialog.open(TranslateComponent,{
+  translateList(row: any) {
+    this.dialog.open(TranslateComponent, {
       width: '70%',
       height: '45%',
       data: row
     }).afterClosed().subscribe(val => {
-      if(val === 'translate'){
+      if (val === 'translate') {
         this.getAllLists();
       }
     })
   }
-  deleteList(id: number){
+  deleteList(id: number) {
     this.frontEndService.delList(id).subscribe({
-      next:(res) => {
+      next: (res) => {
         alert("List Deleted Successfully!")
         this.getAllLists();
       },
@@ -117,7 +117,7 @@ export class HomeComponent implements OnInit {
     var payload = Buffer.from(base64Payload, 'base64');
     return JSON.parse(payload.toString());
   }
-  logOutUser(){
+  logOutUser() {
     this.frontEndService.logout();
     this.router.navigate(['login']);
   }

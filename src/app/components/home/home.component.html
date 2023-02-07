@@ -20,18 +20,6 @@
 
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort>
-
-        <!-- ID Column -->
-        <!-- <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-          <td mat-cell *matCellDef="let row"> {{row.id}} </td>
-        </ng-container> -->
-
-        <!-- To-Do List Column -->
-        <!-- <ng-container matColumnDef="userEmail">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> EMAIL</th>
-                <td mat-cell *matCellDef="let row"> {{row.userEmail}} </td>
-              </ng-container> -->
         <ng-container matColumnDef="title">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> TITLE </th>
           <td mat-cell *matCellDef="let row"> {{row.title}} </td>
@@ -43,13 +31,16 @@
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </th>
           <td mat-cell *matCellDef="let row">
-            <button mat-icon-button class="example-icon" color="primary" (click)="editList(row)" aria-label="Example icon-button with menu icon">
+            <button mat-icon-button class="example-icon" color="primary" (click)="editList(row)"
+              aria-label="Example icon-button with menu icon">
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button class="example-icon" color="warn" (click)="deleteList(row.id)" aria-label="Example icon-button with menu icon">
+            <button mat-icon-button class="example-icon" color="warn" (click)="deleteList(row.id)"
+              aria-label="Example icon-button with menu icon">
               <mat-icon>delete_outline</mat-icon>
             </button>
-            <button mat-icon-button class="example-icon" (click)="translateList(row)"  aria-label="Example icon-button with menu icon">
+            <button mat-icon-button class="example-icon" (click)="translateList(row)"
+              aria-label="Example icon-button with menu icon">
               <mat-icon>more_vert</mat-icon>
             </button>
           </td>

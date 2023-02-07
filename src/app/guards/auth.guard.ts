@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanActivate } from '@angular/router';
 import { FrontendService } from '../services/frontend.service';
 
 @Injectable({
@@ -9,14 +8,13 @@ import { FrontendService } from '../services/frontend.service';
 export class AuthGuard implements CanActivate {
   constructor(
     private authService: FrontendService
-  ){}
-  canActivate():boolean {
-    if(!this.authService.isAuth()){
-      console.log('Session no longer available as JWT Token expired!');
+  ) { }
+  canActivate(): boolean {
+    if (!this.authService.isAuth()) {
       return false;
     }
     return true;
   }
-  
+
 }
 
