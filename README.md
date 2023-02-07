@@ -1,6 +1,8 @@
-# MaterialUiFrontend
+# MaterialUiFrontend - Getting Started
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.2.
+--> install node modules using node command npm install 
+--> start the server using ng serve
 
 ## Development server
 
