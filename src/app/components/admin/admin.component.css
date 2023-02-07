@@ -10,3 +10,6 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+.align-center {
+  text-align: center;
+}

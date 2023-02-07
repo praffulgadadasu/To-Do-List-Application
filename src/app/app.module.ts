@@ -23,7 +23,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AdminComponent } from './components/admin/admin.component';
-import { TranslateComponent } from './components/translate/translate.component';@NgModule({
+import { TranslateComponent } from './components/translate/translate.component';
+
+@NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
