@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -8,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Buffer } from 'buffer';
 import { FrontendService } from 'src/app/services/frontend.service';
+
 
 
 const httpOptions = {
@@ -33,7 +33,7 @@ export class AdminComponent implements OnInit {
   @ViewChild(MatPaginator) paginator2!: MatPaginator;
   @ViewChild(MatSort) sort2!: MatSort;
 
-  constructor( private http: HttpClient, private router: Router, private frontEndService: FrontendService) {
+  constructor( private http: HttpClient, private router: Router, private dialog: MatDialog, private frontEndService: FrontendService) {
 
   }
   ngOnInit() {
@@ -44,6 +44,7 @@ export class AdminComponent implements OnInit {
     let payload = this.parseJwt(token);
     this.name = payload.username;
     this.dataSource1 = new MatTableDataSource();
+    this.getAllUsers();
     this.dataSource2 = new MatTableDataSource();
   }
 
@@ -59,6 +60,7 @@ export class AdminComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue1 = (event.target as HTMLInputElement).value;
     this.dataSource1.filter = filterValue1.trim().toLowerCase();
+
     if (this.dataSource1.paginator) {
       this.dataSource1.paginator.firstPage();
     }
